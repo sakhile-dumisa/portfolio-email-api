@@ -49,7 +49,7 @@ email.post(
 
       // Send confirmation only after inbox email succeeds.
       await resend.emails.send({
-        from: `Sakhile Dumisa <${process.env.FROM_VERIFY!}>`,
+        from: `Sakhile Dumisa <${process.env.FROM_SENDER!}>`,
         to: cleanSentBy,
         subject: `Thanks, ${titledName}!`,
         template: {
