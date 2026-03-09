@@ -36,8 +36,8 @@ email.post('/api/send-email', zValidator('json', sendEmailSchema, (result, c) =>
                 variables: { userName: titledName, message: cleanMessage, userEmail: cleanSentBy }
             }
         });
-        // Thank-you email (non-blocking)
-        resend.emails.send({
+        // Send confirmation only after inbox email succeeds.
+        await resend.emails.send({
             from: process.env.FROM_VERIFY,
             to: cleanSentBy,
             subject: `Thanks, ${titledName}!`,
@@ -45,7 +45,7 @@ email.post('/api/send-email', zValidator('json', sendEmailSchema, (result, c) =>
                 id: process.env.RESEND_TEMPLATE_CONFIRMATION_ID,
                 variables: { userName: titledName }
             }
-        }).catch(console.error);
+        });
         return c.json({ success: true, data: inboxRes });
     }
     catch (err) {
@@ -73,7 +73,7 @@ email.post('/api/send-otp', zValidator('json', sendOtpSchema), async (c) => {
     }
     try {
         await resend.emails.send({
-            from: process.env.FROM_VERIFY,
+            from: `OTP Code<${process.env.FROM_VERIFY}>`,
             to: email,
             subject: "Your Verification Code",
             template: {

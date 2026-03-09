@@ -47,16 +47,16 @@ email.post(
         }
       })
 
-      // Thank-you email (non-blocking)
-      resend.emails.send({
-        from: process.env.FROM_VERIFY!,
+      // Send confirmation only after inbox email succeeds.
+      await resend.emails.send({
+        from: `Sakhile Dumisa <${process.env.FROM_VERIFY!}>`,
         to: cleanSentBy,
         subject: `Thanks, ${titledName}!`,
         template: {
           id: process.env.RESEND_TEMPLATE_CONFIRMATION_ID!,
           variables: { userName: titledName }
         }
-      }).catch(console.error)
+      })
 
       return c.json({ success: true, data: inboxRes })
     } catch (err: any) {
@@ -93,7 +93,7 @@ email.post(
 
     try {
       await resend.emails.send({
-        from: process.env.FROM_VERIFY!,
+        from: `OTP Code<${process.env.FROM_VERIFY!}>`,
         to: email,
         subject: "Your Verification Code",
         template: {
