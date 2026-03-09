@@ -6,7 +6,7 @@ import { logger } from 'hono/logger'
 import { cors } from 'hono/cors'
 import { secureHeaders } from 'hono/secure-headers'
 import { rateLimiter } from 'hono-rate-limiter'
-import RedisStore from 'rate-limit-redis'
+import { RedisStore } from 'rate-limit-redis'
 import { Redis } from 'ioredis'
 import { Resend } from 'resend'
 import emailRouter from './routes/email.js'
@@ -53,7 +53,7 @@ const createRedisClient = (): Redis | null => {
 }
 
 let sharedRedisClient: Redis | null = null
-let sharedRedisStore: RedisStore | null = null
+let sharedRedisStore: any = null
 let redisInitAttempted = false
 
 const getSharedRedisClient = async (): Promise<Redis | null> => {
@@ -81,7 +81,7 @@ const getSharedRedisClient = async (): Promise<Redis | null> => {
   }
 }
 
-const getSharedRedisStore = async (): Promise<RedisStore | null> => {
+const getSharedRedisStore = async (): Promise<any> => {
   if (sharedRedisStore) return sharedRedisStore
   const client = await getSharedRedisClient()
   if (!client) return null

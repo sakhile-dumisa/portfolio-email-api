@@ -6,7 +6,7 @@ import { logger } from 'hono/logger';
 import { cors } from 'hono/cors';
 import { secureHeaders } from 'hono/secure-headers';
 import { rateLimiter } from 'hono-rate-limiter';
-import RedisStore from 'rate-limit-redis';
+import { RedisStore } from 'rate-limit-redis';
 import { Redis } from 'ioredis';
 import { Resend } from 'resend';
 import emailRouter from './routes/email.js';
