@@ -108,20 +108,21 @@ app.get('/favicon.ico', async (c) => {
   }
 })
 
-// Serve font from public (Space Grotesk)
 app.get('/space-grotesk.woff2', async (c) => {
   try {
     const fontPath = path.join(process.cwd(), 'public', 'space-grotesk.woff2')
     const font = await readFile(fontPath)
+    
+    // Add this line - it's the only way the font will load in an email client
+    c.header('Access-Control-Allow-Origin', '*') 
+    
     c.header('Content-Type', 'font/woff2')
-    // Cache for 30 days
     c.header('Cache-Control', 'public, max-age=2592000')
     return c.body(font)
   } catch {
     return c.text('Not found', 404)
   }
 })
-
 // CORS – your exact origins
 app.use('*', cors({
   origin: [
