@@ -19,7 +19,14 @@ email.post(
   '/api/send-email',
   zValidator('json', sendEmailSchema, (result, c) => {
     if (!result.success) {
-      return c.json({ success: false, error: "Validation error", issues: result.error.issues }, 400)
+      return c.json(
+        {
+          success: false,
+          error: "Validation error",
+          issues: (result as { error: { issues: unknown[] } }).error.issues,
+        },
+        400,
+      )
     }
   }),
   async (c) => {
