@@ -30,5 +30,11 @@
     "react-email": "6.1.4",
     "tsx": "^4.7.1",
     "typescript": "^5.8.3"
+  },
+  "pnpm": {
+    "overrides": {
+      "@types/react": "19.2.14",
+      "@types/react-dom": "19.2.3"
+    }
   }
 }

@@ -1,13 +1,10 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.ConfirmationEmail = void 0;
-const jsx_runtime_1 = require("react/jsx-runtime");
-const react_email_1 = require("react-email");
-const ConfirmationEmail = ({ userName = "there", sentMessage }) => {
-    return ((0, jsx_runtime_1.jsxs)(react_email_1.Html, { lang: "en", dir: "ltr", children: [(0, jsx_runtime_1.jsx)(react_email_1.Head, { children: (0, jsx_runtime_1.jsx)(react_email_1.Font, { fontFamily: "Space Grotesk", fallbackFontFamily: "Arial", webFont: {
+import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
+import { Body, Container, Head, Heading, Html, Img, Link, Preview, Section, Text, Font, Tailwind, } from "react-email";
+export const ConfirmationEmail = ({ userName = "there", sentMessage }) => {
+    return (_jsxs(Html, { lang: "en", dir: "ltr", children: [_jsx(Head, { children: _jsx(Font, { fontFamily: "Space Grotesk", fallbackFontFamily: "Arial", webFont: {
                         url: "https://mail.sakhiledumisa.com/space-grotesk.woff2",
                         format: "woff2",
-                    }, fontWeight: 400, fontStyle: "normal" }) }), (0, jsx_runtime_1.jsx)(react_email_1.Preview, { children: "Thanks for your message\u2014I'll respond shortly." }), (0, jsx_runtime_1.jsx)(react_email_1.Tailwind, { config: {
+                    }, fontWeight: 400, fontStyle: "normal" }) }), _jsx(Preview, { children: "Thanks for your message\u2014I'll respond shortly." }), _jsx(Tailwind, { config: {
                     theme: {
                         extend: {
                             fontFamily: {
@@ -15,7 +12,6 @@ const ConfirmationEmail = ({ userName = "there", sentMessage }) => {
                             },
                         },
                     },
-                }, children: (0, jsx_runtime_1.jsx)(react_email_1.Body, { className: "bg-white my-auto mx-auto font-sans", children: (0, jsx_runtime_1.jsxs)(react_email_1.Container, { className: "max-w-[600px] mx-auto p-[40px_20px]", children: [(0, jsx_runtime_1.jsx)(react_email_1.Section, { className: "mb-[32px] text-center", children: (0, jsx_runtime_1.jsx)(react_email_1.Link, { href: "https://sakhiledumisa.com", children: (0, jsx_runtime_1.jsx)(react_email_1.Img, { src: "https://mail.sakhiledumisa.com/logo.png", width: "52", height: "52", alt: "Logo", className: "rounded-lg inline-block" }) }) }), (0, jsx_runtime_1.jsxs)(react_email_1.Section, { children: [(0, jsx_runtime_1.jsxs)(react_email_1.Heading, { className: "text-black text-sm font-semibold leading-tight mb-4 text-left", children: ["Thank you for your email, ", userName, ". I will get back to you as soon as I can."] }), (0, jsx_runtime_1.jsx)(react_email_1.Section, { className: "bg-[#f9f9f9] rounded p-4 mb-4 border border-solid border-[#eeeeee]", children: (0, jsx_runtime_1.jsx)(react_email_1.Text, { className: "text-[#444] text-sm leading-relaxed m-0 text-left font-normal italic-none", children: sentMessage }) }), (0, jsx_runtime_1.jsxs)(react_email_1.Text, { className: "text-[#868686] text-sm leading-relaxed m-0 text-left", children: ["You can reply to this email if your matter is immediate. Feel free to", " ", (0, jsx_runtime_1.jsx)(react_email_1.Link, { href: "https://www.sakhiledumisa.com", className: "text-[#0670DB]", children: "visit" }), " ", "again!"] })] })] }) }) })] }));
+                }, children: _jsx(Body, { className: "bg-white my-auto mx-auto font-sans", children: _jsxs(Container, { className: "max-w-[600px] mx-auto p-[40px_20px]", children: [_jsx(Section, { className: "mb-[32px] text-center", children: _jsx(Link, { href: "https://sakhiledumisa.com", children: _jsx(Img, { src: "https://mail.sakhiledumisa.com/logo.png", width: "52", height: "52", alt: "Logo", className: "rounded-lg inline-block" }) }) }), _jsxs(Section, { children: [_jsxs(Heading, { className: "text-black text-sm font-semibold leading-tight mb-4 text-left", children: ["Thank you for your email, ", userName, ". I will get back to you as soon as I can."] }), _jsx(Section, { className: "bg-[#f9f9f9] rounded p-4 mb-4 border border-solid border-[#eeeeee]", children: _jsx(Text, { className: "text-[#444] text-sm leading-relaxed m-0 text-left font-normal italic-none", children: sentMessage }) }), _jsxs(Text, { className: "text-[#868686] text-sm leading-relaxed m-0 text-left", children: ["You can reply to this email if your matter is immediate. Feel free to", " ", _jsx(Link, { href: "https://www.sakhiledumisa.com", className: "text-[#0670DB]", children: "visit" }), " ", "again!"] })] })] }) }) })] }));
 };
-exports.ConfirmationEmail = ConfirmationEmail;
-exports.default = exports.ConfirmationEmail;
+export default ConfirmationEmail;
