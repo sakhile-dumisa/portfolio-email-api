@@ -1,6 +1,6 @@
-import { VerificationEmail } from './../../react-email-starter/emails/otp-email.js';
-import { ConfirmationEmail } from './../../react-email-starter/emails/confirmation-email.js';
-import { InboxEmail } from './../../react-email-starter/emails/inbox-email.js';
+import { VerificationEmail } from '../emails/otp-email.js';
+import { ConfirmationEmail } from '../emails/confirmation-email.js';
+import { InboxEmail } from '../emails/inbox-email.js';
 import { Hono } from 'hono';
 import { zValidator } from '@hono/zod-validator';
 import sanitizeHtml from 'sanitize-html';
