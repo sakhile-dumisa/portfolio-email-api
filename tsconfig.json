@@ -4,11 +4,12 @@
     "module": "NodeNext",
     "strict": true,
     "skipLibCheck": true,
-    "rootDir": "./src",
+    "rootDir": ".",
     "types": ["node"],
     "jsx": "react-jsx",
     "jsxImportSource": "hono/jsx",
     "outDir": "./dist"
   },
-  "exclude": ["node_modules"]
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "react-email-starter"]
 }
