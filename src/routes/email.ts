@@ -1,6 +1,7 @@
 import { Hono } from 'hono'
 import { zValidator } from '@hono/zod-validator'
 import sanitizeHtml from 'sanitize-html'
+import { render } from 'react-email'
 import { sendEmailSchema, sendOtpSchema, verifyOtpSchema } from '../schemas/email.schema.js'
 import type { AppVariables } from '../types/app.js'
 import { InboxEmail } from '../emails/inbox-email.js'
@@ -39,20 +40,22 @@ email.post(
 
     try {
       // Send to inbox (you)
+      const inboxHtml = await render(InboxEmail({ userName: titledName, message: cleanMessage }))
       const inboxRes = await resend.emails.send({
         from: `${titledName} <${from}>`,
         to,
         replyTo: cleanSentBy,
         subject: `New message from ${titledName}`,
-        react: InboxEmail({ userName: titledName, message: cleanMessage })
+        html: inboxHtml
       })
 
       // Send confirmation only after inbox email succeeds.
+      const confirmationHtml = await render(ConfirmationEmail({ userName: titledName, sentMessage: cleanMessage }))
       await resend.emails.send({
         from: `Sakhile Dumisa <${process.env.FROM_SENDER!}>`,
         to: cleanSentBy,
         subject: `Thanks, ${titledName}!`,
-        react: ConfirmationEmail({ userName: titledName, sentMessage: cleanMessage })
+        html: confirmationHtml
       })
 
       return c.json({ success: true, data: inboxRes })
@@ -89,11 +92,12 @@ email.post(
     }
 
     try {
+      const otpHtml = await render(VerificationEmail({ code }))
       await resend.emails.send({
         from: `OTP Code<${process.env.FROM_VERIFY!}>`,
         to: email,
         subject: "Your Verification Code",
-        react: VerificationEmail({ code })
+        html: otpHtml
       })
 
       return c.json({ success: true, message: "OTP sent" })
