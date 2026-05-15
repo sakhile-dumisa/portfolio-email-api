@@ -2,20 +2,13 @@
   "compilerOptions": {
     "target": "ESNext",
     "module": "NodeNext",
-    "moduleResolution": "NodeNext",
+    "strict": true,
+    "skipLibCheck": true,
+    "rootDir": "./src",
+    "types": ["node"],
     "jsx": "react-jsx",
-    "jsxImportSource": "react",
-    "skipLibCheck": true, 
-    "rootDir": ".",
-    "outDir": "./dist",
-    "noEmit": false
+    "jsxImportSource": "hono/jsx",
+    "outDir": "./dist"
   },
-  "include": [
-    "src/**/*",
-    "react-email-starter/emails/**/*"
-  ],
-  "exclude": [
-    "node_modules",
-    "react-email-starter/node_modules" 
-  ]
+  "exclude": ["node_modules"]
 }
