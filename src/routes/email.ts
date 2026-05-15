@@ -3,10 +3,6 @@ import { zValidator } from '@hono/zod-validator'
 import sanitizeHtml from 'sanitize-html'
 import { sendEmailSchema, sendOtpSchema, verifyOtpSchema } from '../schemas/email.schema.js'
 import type { AppVariables } from '../types/app.js'
-import { InboxEmail } from '../emails/inbox-email.js'
-import { ConfirmationEmail } from '../emails/confirmation-email.js'
-import { VerificationEmail } from '../emails/otp-email.js'
-import { render } from 'react-email'
 
 const email = new Hono<{ Variables: AppVariables }>()
 
@@ -40,22 +36,26 @@ email.post(
 
     try {
       // Send to inbox (you)
-      const inboxHtml = await render(InboxEmail({ userName: titledName, message: cleanMessage }))
       const inboxRes = await resend.emails.send({
         from: `${titledName} <${from}>`,
         to,
         replyTo: cleanSentBy,
         subject: `New message from ${titledName}`,
-        html: inboxHtml
+        template: {
+          id: process.env.RESEND_TEMPLATE_INBOX_ID!,
+          variables: { userName: titledName, message: cleanMessage, userEmail: cleanSentBy }
+        }
       })
 
       // Send confirmation only after inbox email succeeds.
-      const confirmationHtml = await render(ConfirmationEmail({ userName: titledName, sentMessage: cleanMessage }))
       await resend.emails.send({
         from: `Sakhile Dumisa <${process.env.FROM_SENDER!}>`,
         to: cleanSentBy,
         subject: `Thanks, ${titledName}!`,
-        html: confirmationHtml
+        template: {
+          id: process.env.RESEND_TEMPLATE_CONFIRMATION_ID!,
+          variables: { userName: titledName, message: cleanMessage }
+        }
       })
 
       return c.json({ success: true, data: inboxRes })
@@ -92,12 +92,14 @@ email.post(
     }
 
     try {
-      const otpHtml = await render(VerificationEmail({ code }))
       await resend.emails.send({
         from: `OTP Code<${process.env.FROM_VERIFY!}>`,
         to: email,
         subject: "Your Verification Code",
-        html: otpHtml
+        template: {
+          id: process.env.RESEND_TEMPLATE_OTP_ID!,
+          variables: { code }
+        }
       })
 
       return c.json({ success: true, message: "OTP sent" })
