@@ -3,6 +3,9 @@ import { zValidator } from '@hono/zod-validator'
 import sanitizeHtml from 'sanitize-html'
 import { sendEmailSchema, sendOtpSchema, verifyOtpSchema } from '../schemas/email.schema.js'
 import type { AppVariables } from '../types/app.js'
+import { InboxEmail } from '../emails/inbox-email.js'
+import { ConfirmationEmail } from '../emails/confirmation-email.js'
+import { VerificationEmail } from '../emails/otp-email.js'
 
 const email = new Hono<{ Variables: AppVariables }>()
 
@@ -41,10 +44,7 @@ email.post(
         to,
         replyTo: cleanSentBy,
         subject: `New message from ${titledName}`,
-        template: {
-          id: process.env.RESEND_TEMPLATE_INBOX_ID!,
-          variables: { userName: titledName, message: cleanMessage, userEmail: cleanSentBy }
-        }
+        react: InboxEmail({ userName: titledName, message: cleanMessage })
       })
 
       // Send confirmation only after inbox email succeeds.
@@ -52,10 +52,7 @@ email.post(
         from: `Sakhile Dumisa <${process.env.FROM_SENDER!}>`,
         to: cleanSentBy,
         subject: `Thanks, ${titledName}!`,
-        template: {
-          id: process.env.RESEND_TEMPLATE_CONFIRMATION_ID!,
-          variables: { userName: titledName }
-        }
+        react: ConfirmationEmail({ userName: titledName, sentMessage: cleanMessage })
       })
 
       return c.json({ success: true, data: inboxRes })
@@ -96,10 +93,7 @@ email.post(
         from: `OTP Code<${process.env.FROM_VERIFY!}>`,
         to: email,
         subject: "Your Verification Code",
-        template: {
-          id: process.env.RESEND_TEMPLATE_OTP_ID!,
-          variables: { code }
-        }
+        react: VerificationEmail({ code })
       })
 
       return c.json({ success: true, message: "OTP sent" })
