@@ -1,4 +1,4 @@
-import { jsx as _jsx, jsxs as _jsxs } from 'hono/jsx/jsx-runtime'
+import { jsx as _jsx, jsxs as _jsxs } from './react-runtime.js'
 import {
   Body,
   Container,
