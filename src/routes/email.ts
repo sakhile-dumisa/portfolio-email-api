@@ -1,12 +1,12 @@
 import { Hono } from 'hono'
 import { zValidator } from '@hono/zod-validator'
 import sanitizeHtml from 'sanitize-html'
-import { render } from 'react-email'
 import { sendEmailSchema, sendOtpSchema, verifyOtpSchema } from '../schemas/email.schema.js'
 import type { AppVariables } from '../types/app.js'
 import { InboxEmail } from '../emails/inbox-email.js'
 import { ConfirmationEmail } from '../emails/confirmation-email.js'
 import { VerificationEmail } from '../emails/otp-email.js'
+import { render } from 'react-email'
 
 const email = new Hono<{ Variables: AppVariables }>()
 

@@ -1,2 +1,0 @@
-// @ts-expect-error - this runtime is provided by the react-email package tree at deploy time.
-export { jsx, jsxs } from '../../node_modules/.pnpm/react-email@6.1.4_react-dom_6f275d77bfa64ca73101a78f52e036c5/node_modules/react/jsx-runtime.js'
