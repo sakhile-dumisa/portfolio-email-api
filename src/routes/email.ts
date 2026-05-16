@@ -9,6 +9,54 @@ const email = new Hono<{ Variables: AppVariables }>()
 const titleCase = (str: string) =>
   str.trim().toLowerCase().replace(/(^|\s|-)\S/g, l => l.toUpperCase())
 
+const listAllTemplates = async (resend: NonNullable<AppVariables['resend']>) => {
+  const templates: any[] = []
+  let after: string | undefined
+  let hasMore = true
+
+  while (hasMore) {
+    const response = await resend.templates.list({
+      limit: 100,
+      ...(after ? { after } : {})
+    }) as unknown as {
+      data?: {
+        data?: any[]
+        has_more?: boolean
+      }
+      error?: { message?: string } | null
+    }
+
+    if (response.error) {
+      throw new Error(response.error.message || 'Failed to list templates')
+    }
+
+    const pageData = response.data || {}
+    const pageTemplates = pageData.data || []
+    templates.push(...pageTemplates)
+    hasMore = Boolean(pageData.has_more)
+    after = pageTemplates.at(-1)?.id
+
+    if (!after) break
+  }
+
+  return templates
+}
+
+// GET /email/api/templates
+email.get('/api/templates', async (c) => {
+  const resend = c.get('resend')
+
+  if (!resend) return c.json({ success: false, error: 'Email service unavailable' }, 503)
+
+  try {
+    const templates = await listAllTemplates(resend)
+    return c.json({ success: true, data: templates })
+  } catch (err: any) {
+    console.error('List templates failed:', err)
+    return c.json({ success: false, error: err.message || 'Failed to list templates' }, 500)
+  }
+})
+
 // POST /email/api/send-email
 email.post(
   '/api/send-email',

@@ -39,6 +39,7 @@ Notes:
 
 - If `RESEND_API_KEY` is missing, health/root routes still work, but email endpoints return `503`.
 - If Redis config is missing/unavailable, the API still runs with limited OTP protections.
+- `GET /email/api/templates` lists all Resend templates for the configured account.
 
 ## Local Development
 
