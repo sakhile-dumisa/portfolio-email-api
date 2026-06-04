@@ -10,19 +10,19 @@ importers:
     dependencies:
       '@hono/node-server':
         specifier: ^1.19.13
-        version: 1.19.13(hono@4.12.18)
+        version: 1.19.13(hono@4.12.21)
       '@hono/zod-validator':
         specifier: ^0.7.6
-        version: 0.7.6(hono@4.12.18)(zod@4.3.6)
+        version: 0.7.6(hono@4.12.21)(zod@4.3.6)
       dotenv:
         specifier: ^16.6.1
         version: 16.6.1
       hono:
-        specifier: ^4.12.18
-        version: 4.12.18
+        specifier: ^4.12.21
+        version: 4.12.21
       hono-rate-limiter:
         specifier: ^0.5.3
-        version: 0.5.3(hono@4.12.18)
+        version: 0.5.3(hono@4.12.21)
       ioredis:
         specifier: ^5.10.0
         version: 5.10.0
@@ -418,8 +418,8 @@ packages:
     resolution: {integrity: sha512-1cDNdwJ2Jaohmb3sg4OmKaMBwuC48sYni5HUw2DvsC8LjGTLK9h+eb1X6RyuOHe4hT0ULCW68iomhjUoKUqlPQ==}
     engines: {node: '>= 0.4'}
 
-  hasown@2.0.3:
-    resolution: {integrity: sha512-ej4AhfhfL2Q2zpMmLo7U1Uv9+PyhIZpgQLGT1F9miIGmiCJIoCgSmczFdrc97mWT4kVY72KA+WnnhJ5pghSvSg==}
+  hasown@2.0.4:
+    resolution: {integrity: sha512-T2UbfbBEF32wiepXIsMlTW9+dDYC6wMh/t/vYA4tuOMKqWz/n3vr1NFSxQiyP+zk2mXsoMA/i/7qV6LKut1t1A==}
     engines: {node: '>= 0.4'}
 
   hono-rate-limiter@0.5.3:
@@ -431,8 +431,8 @@ packages:
       unstorage:
         optional: true
 
-  hono@4.12.18:
-    resolution: {integrity: sha512-RWzP96k/yv0PQfyXnWjs6zot20TqfpfsNXhOnev8d1InAxubW93L11/oNUc3tQqn2G0bSdAOBpX+2uDFHV7kdQ==}
+  hono@4.12.21:
+    resolution: {integrity: sha512-uV63apnb0kyPtAUwoWgaGh9HyIFcv8lgmzPZSiTBQAFOFGIzka5EZ1dZocmGnn0XdX0+XTqJ6Tqv7selMuGLRQ==}
     engines: {node: '>=16.9.0'}
 
   htmlparser2@10.1.0:
@@ -751,13 +751,13 @@ snapshots:
   '@esbuild/win32-x64@0.27.3':
     optional: true
 
-  '@hono/node-server@1.19.13(hono@4.12.18)':
+  '@hono/node-server@1.19.13(hono@4.12.21)':
     dependencies:
-      hono: 4.12.18
+      hono: 4.12.21
 
-  '@hono/zod-validator@0.7.6(hono@4.12.18)(zod@4.3.6)':
+  '@hono/zod-validator@0.7.6(hono@4.12.21)(zod@4.3.6)':
     dependencies:
-      hono: 4.12.18
+      hono: 4.12.21
       zod: 4.3.6
 
   '@ioredis/commands@1.5.1': {}
@@ -974,7 +974,7 @@ snapshots:
       get-proto: 1.0.1
       gopd: 1.2.0
       has-symbols: 1.1.0
-      hasown: 2.0.3
+      hasown: 2.0.4
       math-intrinsics: 1.1.0
 
   get-proto@1.0.1:
@@ -990,15 +990,15 @@ snapshots:
 
   has-symbols@1.1.0: {}
 
-  hasown@2.0.3:
+  hasown@2.0.4:
     dependencies:
       function-bind: 1.1.2
 
-  hono-rate-limiter@0.5.3(hono@4.12.18):
+  hono-rate-limiter@0.5.3(hono@4.12.21):
     dependencies:
-      hono: 4.12.18
+      hono: 4.12.21
 
-  hono@4.12.18: {}
+  hono@4.12.21: {}
 
   htmlparser2@10.1.0:
     dependencies:
